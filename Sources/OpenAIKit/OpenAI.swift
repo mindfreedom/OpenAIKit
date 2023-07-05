@@ -93,7 +93,8 @@ public final class OpenAI {
     /// - Parameter path: The `String` path.
     /// - Returns: An `URL` object.
     private func getServerUrl(path: String) async throws -> URL {
-        guard let result = URL(string: "https://api.openai.com/v1\(path)") else {
+    //    guard let result = URL(string: "https://api.openai.com/v1\(path)") else {
+		guard let result = URL(string: "http://127.0.0.1\(path)") else {
             throw OpenAIError.invalidUrl
         }
 
@@ -123,7 +124,8 @@ extension OpenAI: OpenAIProtocol {
     }
 
     public func generateCompletion(parameters param: CompletionParameters) async throws -> CompletionResponse {
-        let serverUrl = try await getServerUrl(path: "/completions")
+    //    let serverUrl = try await getServerUrl(path: "/completions")
+		let serverUrl = try await getServerUrl(path: "/send_bot")
         return try await OpenAIKitSession.shared.decodeUrl(
             with: serverUrl,
             apiKey: config.apiKey,
